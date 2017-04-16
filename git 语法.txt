@@ -12,7 +12,7 @@ git工具
 	git 全局设置
 	git config --global user.name "Your Name"
 	git config --global user.email "email@example.com"
-	git config --global core.autocrlf false
+	git config --global core.autocrlf false 忽略换行方式
 		--global参数，所有的Git仓库都会使用这个配置
 		git config --global <配置名称> <配置的值>
 
@@ -79,3 +79,23 @@ git工具
 	git clone <url> 克隆远程库
 		git支持多种协议 ssh协议 git clone git@github.com:cccikov/cccgit.git
 						https协议 git clone https://github.com/cccikov/cccgit.git
+
+分支作用
+	在Git里，这个分支叫主分支，即master分支。
+	分支在实际中有什么用呢？假设你准备开发一个新功能，但是需要两周才能完成，第一周你写了50%的代码，如果立刻提交，由于代码还没写完，不完整的代码库会导致别人不能干活了。如果等代码全部写完再一次提交，又存在丢失每天进度的巨大风险。
+	git branch 查看分支
+	git branch <name> 创建分支
+	git checkout <name> 切换分支
+	git checkout -b <name> 创建+切换分支
+	git merge <name> 合并某分支到当前分支
+		git merge --no-ff -m "merge with no-ff" dev   --no-ff参数，强制禁用Fast forward模式
+	git branch -d <name> 删除分支
+
+	git log --graph 查看分支合并图
+		git log --graph --pretty=oneline --abbrev-commit  --pretty=oneline参数 一行显示；--abbrev-commit简化commit id
+
+在实际开发中，我们应该按照几个基本原则进行分支管理：
+	首先，master分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；
+	那在哪干活呢？干活都在dev分支上，也就是说，dev分支是不稳定的，到某个时候，比如1.0版本发布时，再把dev分支合并到master上，在master分支发布1.0版本；
+	你和你的小伙伴们每个人都在dev分支上干活，每个人都有自己的分支，时不时地往dev分支上合并就可以了。
+	所以，团队合作的分支看起来就像这样：
