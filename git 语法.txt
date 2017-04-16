@@ -1,0 +1,27 @@
+安装好git后,打开 Git Bash
+
+	git 全局设置
+	git config --global user.name "Your Name"
+	git config --global user.email "email@example.com"
+	git config --global core.autocrlf false
+		--global参数，所有的Git仓库都会使用这个配置
+		git config --global <配置名称> <配置的值>
+
+	git init 创建版本库
+		cd PathName 切换到目录
+		mkdir Folder 新建文件夹
+		pwd 用于显示当前目录路径
+
+	git add <file> 将工作库<file>文件添加到缓存库
+		git add -A   // 添加所有改动
+		git add *    // 添加新建文件和修改，但是不包括删除
+		git add .    // 添加新建文件和修改，但是不包括删除
+		git add -u   // 添加修改和删除，但是不包括新建文件
+	git commit -m "xxx" 将缓存库的文件移到版本库
+
+	git status 版本库状态
+	git diff <file> 查看变更内容
+
+
+
+
