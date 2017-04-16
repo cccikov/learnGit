@@ -1,3 +1,12 @@
+git <command> [<revision>...] -- [<file>...]
+	git-命令格式 <file>最好加双引号括住 否则，如果文件名有关键字（如git）会出错
+
+git工具
+	git bash
+	sourcetree
+	sublime + git 插件
+	eclipse + EGIT == HBuilder + EGIT 可以直接看某个文件历史纪录+对比
+
 安装好git后,打开 Git Bash
 
 	git 全局设置
@@ -8,19 +17,50 @@
 		git config --global <配置名称> <配置的值>
 
 	git init 创建版本库
-		cd PathName 切换到目录
-		mkdir Folder 新建文件夹
+		cd <Path> 切换到目录
+		mkdir <Folder> 新建文件夹
 		pwd 用于显示当前目录路径
 
-	git add <file> 将工作库<file>文件添加到缓存库
+	git add <file> 将工作库<file>文件添加到暂存区
 		git add -A   // 添加所有改动
 		git add *    // 添加新建文件和修改，但是不包括删除
 		git add .    // 添加新建文件和修改，但是不包括删除
 		git add -u   // 添加修改和删除，但是不包括新建文件
-	git commit -m "xxx" 将缓存库的文件移到版本库
+	git commit -m "xxx" 将暂存区的所有内容提交到当前分支
 
 	git status 版本库状态
-	git diff <file> 查看变更内容
+	git diff <revision> -- <file> 查看变更内容 <revision>默认是当前版本 默认时全部已经修改文件
+		$ git diff HEAD -- "git 语法.txt" 查看工作区与版本区当前版本区别
+
+	git log 查看全部文件提交历史（默认显示3个历史 enter显示更多 一直enter可以一直显示到最初）
+		/*
+			commit 3628164fb26d48395383f8f31179f24e0882e1e0    <commit id>
+			Author: Michael Liao <askxuefeng@gmail.com>		   <author>
+			Date:   Tue Aug 20 15:11:49 2013 +0800			   <date>
+
+			    append GPL									   <描述信息>
+		*/
+	git log <path>+<file> 查看指定文件提交历史（enter显示更多）   git log test/test.html
+	git log -p <path>+<file> 查看指定文件提交历史详情（enter显示更多）   git log -p test/test.html
+	git log --pretty=oneline 每个记录以一行的方式简化，查看全部文件提交历史
+		/*
+			3628164fb26d48395383f8f31179f24e0882e1e0 append GPL				<commit id> + <描述信息>
+		*/
+
+	git reset --hard HEAD^ 回退到上一个版本
+		HEAD当前版本 HEAD^上一个版本 HEAD^^上上一个版本 HEAD~100上100个版本 可以小写（head）
+	git reset --hard commit_id 回退到指定<commit id>的版本
+	git reflog 查看命令历史 会显示<commit id>，可以用来回退到未来版本
+
+	git checkout -- <file> 丢弃工作区的修改 --好重要(其实好像没有都可以)，没有--就变成了“切换到另一个分支”的命令
+	git reset <revision> <file> 丢弃工作区的修改 --好重要(其实好像没有都可以)，没有--就变成了“切换到另一个分支”的命令
+		/*
+			git reset --mixed：此为默认方式，不带任何参数的git reset，即时这种方式，它回退到某个版本，只保留源码，回退commit和index信息
+		    git reset --soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可
+		    git reset --hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容，此命令 慎用！
+		*/
+
+
 
 
 
