@@ -17,9 +17,11 @@ git工具
 		git config --global <配置名称> <配置的值>
 
 	git init 创建版本库
-		cd <Path> 切换到目录
-		mkdir <Folder> 新建文件夹
-		pwd 用于显示当前目录路径
+		/*
+			cd <Path> 切换到目录
+			mkdir <Folder> 新建文件夹
+			pwd 用于显示当前目录路径
+		*/
 
 	git add <file> 将工作库<file>文件添加到暂存区
 		git add -A   // 添加所有改动
@@ -60,8 +62,20 @@ git工具
 		    git reset --hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容，此命令 慎用！
 		*/
 
+删除文件
+	git rm <file> 在版本库删除指定文件  删除完之后直接git commit -m "XXX"
+		/*
+			rm 删除文件
+		*/
 
+远程仓库
+	ssh-keygen -t rsa -C "youremail@example.com"  创建SSH key。 在用户主目录里找到.ssh目录 id_rsa.pub是公钥
 
+	git remote add origin git@github.com:<远程帐号库>/<仓库名>.git 添加远程版本库
+	git push -u origin master 将本地库推送到远程库 -u参数时第一次推送的时候，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来
+		以后可以不加-u参数
+		git push origin master
 
-
-
+	git clone <url> 克隆远程库
+		git支持多种协议 ssh协议 git clone git@github.com:cccikov/cccgit.git
+						https协议 git clone https://github.com/cccikov/cccgit.git
