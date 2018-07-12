@@ -67,8 +67,8 @@ Author: Michael Liao <askxuefeng@gmail.com>		   <author>
 Date:   Tue Aug 20 15:11:49 2013 +0800			   <date>
 
 	append GPL									   <描述信息>
-```				
-				
+```
+
 	git log <path>+<file> 查看指定文件提交历史（enter显示更多）   git log test/test.html
 	git log -p <path>+<file> 查看指定文件提交历史详情（enter显示更多）   git log -p test/test.html
 	git log --pretty=oneline 每个记录以一行的方式简化，查看全部文件提交历史
@@ -102,6 +102,11 @@ Date:   Tue Aug 20 15:11:49 2013 +0800			   <date>
 	git push -u origin master 将本地库推送到远程库 -u参数时第一次推送的时候，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来
 		以后可以不加-u参数
 		git push origin master
+		可以简写为
+		git push origin 或者 git push
+
+	git pull origin 从远程库(origin)获取并合并到当前本地本地分支 等价于 git push
+
 
 	git clone <url> 克隆远程库
 		git支持多种协议 ssh协议 git clone git@github.com:cccikov/cccgit.git
