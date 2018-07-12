@@ -99,13 +99,18 @@ Date:   Tue Aug 20 15:11:49 2013 +0800			   <date>
 	ssh-keygen -t rsa -C "youremail@example.com"  创建SSH key。 在用户主目录里找到.ssh目录 id_rsa.pub是公钥
 
 	git remote add origin git@github.com:<远程帐号库>/<仓库名>.git 添加远程版本库
-	git push -u origin master 将本地库推送到远程库 -u参数时第一次推送的时候，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来
+	git push -u origin master 将本地库推送到远程库 -u参数时第一次推送的时候，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来。将本地的master分支推送到origin主机，同时指定origin为默认主机，后面就可以不加任何参数使用git push了。
+	如果当前分支与多个主机存在追踪关系，则可以使用-u选项指定一个默认主机，这样后面就可以不加任何参数使用git push。
 		以后可以不加-u参数
 		git push origin master
 		可以简写为
 		git push origin 或者 git push
 
 	git pull origin 从远程库(origin)获取并合并到当前本地本地分支 等价于 git push
+
+	git pull origin master:my_test 将远程库(origin)的master分支拉取并合并到本地的my_test分支上。
+
+	git pull origin master 将远程库(origin)的master分支拉取并合并到当前分支上(所以要注意了，如果当前分支不是master，会将当前分支合并成master那样，慎用)。
 
 
 	git clone <url> 克隆远程库
