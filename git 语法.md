@@ -58,7 +58,7 @@ git diff <revision> -- <file> 查看变更内容 <revision>默认是当前版本
 `$ git diff HEAD -- "git 语法.txt"` 查看工作区与版本区当前版本区别
 
 ```bash
-git log 查看全部文件提交历史（默认显示3个历史 enter显示更多 一直enter可以一直显示到最初）
+git log 查看全部文件提交历史（默认显示3个历史 enter显示更多，q退出，vim语法 一直enter可以一直显示到最初）
 ```
 
 ```bash
@@ -69,8 +69,8 @@ Date:   Tue Aug 20 15:11:49 2013 +0800			   <date>
 	append GPL									   <描述信息>
 ```
 
-	git log <path>+<file> 查看指定文件提交历史（enter显示更多）   git log test/test.html
-	git log -p <path>+<file> 查看指定文件提交历史详情（enter显示更多）   git log -p test/test.html
+	git log <path>+<file> 查看指定文件提交历史（enter显示更多，q退出，vim语法）   git log test/test.html
+	git log -p <path>+<file> 查看指定文件提交历史详情（enter显示更多，q退出，vim语法）   git log -p test/test.html
 	git log --pretty=oneline 每个记录以一行的方式简化，查看全部文件提交历史
 		/*
 			3628164fb26d48395383f8f31179f24e0882e1e0 append GPL				<commit id> + <描述信息>
