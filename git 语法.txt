@@ -31,8 +31,19 @@ git工具
 	git commit -m "xxx" 将暂存区的所有内容提交到当前分支
 
 	git status 版本库状态
-	git diff <revision> -- <file> 查看变更内容 <revision>默认是当前版本 默认时全部已经修改文件
-		$ git diff HEAD -- "git 语法.txt" 查看工作区与版本区当前版本区别
+
+	git diff <revision> -- <file> 查看变更内容 <revision>默认是当前版本 <file>默认时全部已经修改文件
+
+		git diff 33ee1e2 234ab1b 对比两个版本有什么不同
+
+		git diff 33ee1e2 234ab1b -- "./learn20180223/day3/express_API.md" 对比两个版本这个文件的区别；如果只写一个版本就是工作区和所写版本的区别
+
+	$ git diff HEAD -- "git 语法.txt" 查看工作区与版本区当前版本(最后一次提交)区别
+
+		git diff 是工作区和暂存区的区别
+		git diff HEAD 是工作区和版本区当前版本的区别哦
+
+	怎么看这些区别，就是版本1通过-+代码的方式变成版本2 版本1最好是旧版本 版本2忽略的话就是工作区
 
 	git log 查看全部文件提交历史（默认显示3个历史 enter显示更多，q退出，vim语法 一直enter可以一直显示到最初）
 		/*
