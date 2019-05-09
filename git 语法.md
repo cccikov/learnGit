@@ -79,26 +79,34 @@ Date:   Tue Aug 20 15:11:49 2013 +0800			   <date>
 	append GPL									   <描述信息>
 ```
 
-	git log <path>+<file> 查看指定文件提交历史（enter显示更多，q退出，vim语法）   git log test/test.html
-	git log -p <path>+<file> 查看指定文件提交历史详情（enter显示更多，q退出，vim语法）   git log -p test/test.html
-	git log --pretty=oneline 每个记录以一行的方式简化，查看全部文件提交历史
-		/*
-			3628164fb26d48395383f8f31179f24e0882e1e0 append GPL				<commit id> + <描述信息>
-		*/
+```
+git log <path>+<file> 查看指定文件提交历史（enter显示更多，q退出，vim语法）   git log test/test.html
+git log -p <path>+<file> 查看指定文件提交历史详情（enter显示更多，q退出，vim语法）   git log -p test/test.html
+git log --pretty=oneline 每个记录以一行的方式简化，查看全部文件提交历史
+	/*
+		3628164fb26d48395383f8f31179f24e0882e1e0 append GPL				<commit id> + <描述信息>
+	*/
 
-	git reset --hard HEAD^ 回退到上一个版本
-		HEAD当前版本 HEAD^上一个版本 HEAD^^上上一个版本 HEAD~100上100个版本 可以小写（head）
-	git reset --hard commit_id 回退到指定<commit id>的版本
-	git reflog 查看命令历史 会显示<commit id>，可以用来回退到未来版本
+git log --graph 查看分支合并图
+git log --graph --pretty=oneline --abbrev-commit
+```
 
-	git checkout -- <file> 丢弃工作区的修改 --好重要(其实好像没有都可以)，没有--就变成了“切换到另一个分支”的命令
-	git reset <revision> <file> 丢弃工作区的修改 --好重要(其实好像没有都可以)，没有--就变成了“切换到另一个分支”的命令
-		/*
-			git reset --mixed：此为默认方式，不带任何参数的git reset，即时这种方式，它回退到某个版本，只保留源码，回退commit和index信息
-		    git reset --soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可
-		    git reset --hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容，此命令 慎用！
-		*/
+```
+git reset --hard HEAD^ 回退到上一个版本
+	HEAD当前版本 HEAD^上一个版本 HEAD^^上上一个版本 HEAD~100上100个版本 可以小写（head）
+git reset --hard commit_id 回退到指定<commit id>的版本
+git reflog 查看命令历史 会显示<commit id>，可以用来回退到未来版本
+```
 
+```
+git checkout -- <file> 丢弃工作区的修改 --好重要(其实好像没有都可以)，没有--就变成了“切换到另一个分支”的命令
+git reset <revision> <file> 丢弃工作区的修改 --好重要(其实好像没有都可以)，没有--就变成了“切换到另一个分支”的命令
+	/*
+		git reset --mixed：此为默认方式，不带任何参数的git reset，即时这种方式，它回退到某个版本，只保留源码，回退commit和index信息
+	    git reset --soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可
+	    git reset --hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容，此命令 慎用！
+	*/
+```
 删除文件
 	git rm <file> 在版本库删除指定文件  删除完之后直接git commit -m "XXX"
 		/*
@@ -138,7 +146,7 @@ Date:   Tue Aug 20 15:11:49 2013 +0800			   <date>
 		git merge --no-ff -m "merge with no-ff" dev   --no-ff参数，强制禁用Fast forward模式
 	git branch -d <name> 删除分支
 
-	git log --graph 查看分支合并图
+`git log --graph` 查看分支合并图
 **`git log --graph --pretty=oneline --abbrev-commit`  `--pretty=oneline`一行显示 ; `--abbrev-commit`简化commit id**
 
 在实际开发中，我们应该按照几个基本原则进行分支管理：
