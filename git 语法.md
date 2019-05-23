@@ -112,7 +112,7 @@ git-命令格式 `<file>`最好加双引号括住 否则，如果文件名有关
         * `--shortstat`	只显示 --stat 中最后的行数修改添加移除统计。
         * `--name-only`	仅在提交信息后显示已修改的文件清单。
         * `--name-status`	显示新增、修改、删除的文件清单。
-        * `--abbrev-commit`	仅显示 SHA-1 的前几个字符，而非所有的 40 个字符。
+        * `--abbrev-commit`	仅显示 SHA-1 的前几个字符，而非所有的 40 个字符。简化commit id
         * `--relative-date`	使用较短的相对时间显示（比如，“2 weeks ago”）。
         * `--graph`	显示 ASCII 图形表示的分支合并历史。
         * `--pretty`	使用其他格式显示历史提交信息。可用的选项包括 oneline，short，full，* fuller 和 format（后跟指定格式）。
@@ -134,10 +134,10 @@ git-命令格式 `<file>`最好加双引号括住 否则，如果文件名有关
     git log #查看全部文件提交历史
     git log test/test.html #查看 test/test.html 提交历史
     git log -p test/test.html #查看 test/test.html 提交历史详情（包含文件差异）
-    git log --pretty=oneline 每个记录以一行的方式简化，查看全部文件提交历史
+    git log --pretty=oneline #查看全部文件提交历史,每个记录以一行的方式简化，
     git log --graph #查看分支合并图
-    git log --graph --pretty=oneline --abbrev-commit #一行显示 id仅显示前几个字符
-    git log --graph --oneline #一行显示 id仅显示前几个字符
+    git log --graph --pretty=oneline --abbrev-commit #查看分支合并图 一行显示 简化commit id
+    git log --graph --oneline #查看分支合并图 一行显示 简化commit id
     ```
 
     [git log](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2)
@@ -215,5 +215,8 @@ git reset <revision> <file> 丢弃工作区的修改 --好重要(其实好像没
 	你和你的小伙伴们每个人都在dev分支上干活，每个人都有自己的分支，时不时地往dev分支上合并就可以了。
 	所以，团队合作的分支看起来就像这样：
 
-
-
+```
+git checkout -b dev 4159f67  将版本回退到4159f67，并在这里创建一个新的 dev 分支，因为HEAD在dev分支上，所以HEAD不是是分离的
+git checkout 4159f67 将版本回退到4159f67，但是HEAD是分离的。将HEAD移动到 4159f67 commit id 版本 位置，但是HEAD处于分离状态
+git reset 4159f67 将代码重置到4159f67版本
+```
