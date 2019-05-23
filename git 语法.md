@@ -1,3 +1,7 @@
+# git 简易使用
+
+[book](https://git-scm.com/book/zh/v2)
+
 ```bash
 git <command> [<revision>...] -- [<file>...]
 ```
@@ -14,17 +18,22 @@ git-命令格式 `<file>`最好加双引号括住 否则，如果文件名有关
 
 #### git 全局设置
 
-```bash
-git config --global user.name "Your Name"
-git config --global user.email "email@example.com"
-git config --global core.autocrlf false 忽略换行方式
-```
+* **git config --global**
 
---global参数，所有的Git仓库都会使用这个配置
+    ```bash
+    git config --global <配置名称> <配置的值>
+    ```
 
-```bash
-git config --global <配置名称> <配置的值>
-```
+    * --global参数，所有的Git仓库都会使用这个配置
+
+    ```bash
+    git config --global user.name "Your Name"
+    git config --global user.email "email@example.com"
+    git config --global core.autocrlf false #忽略换行方式
+    ```
+
+
+
 
 
 #### git init 创建版本库
@@ -33,63 +42,105 @@ git config --global <配置名称> <配置的值>
 * `mkdir <Folder>` 新建文件夹
 * `pwd` 用于显示当前目录路径
 
-```bash
-git add <file> 将工作库<file>文件添加到暂存区
-```
+* **git add**
 
-* `git add -A`   // 添加所有改动
-* `git add *`    // 添加新建文件和修改，但是不包括删除
-* `git add .`    // 添加新建文件和修改，但是不包括删除
-* `git add -u`   // 添加修改和删除，但是不包括新建文件
+    ```bash
+    git add <file>
+    ```
+
+    * file : 将工作库的`<file>`文件添加到暂存区
+
+    ```bash
+   git add -A   # 添加所有改动
+   git add *    # 添加新建文件和修改，但是不包括删除
+   git add .    # 添加新建文件和修改，但是不包括删除
+   git add -u   # 添加修改和删除，但是不包括新建文件
+    ```
+
+* **git commit**
+
+    ```bash
+    git commit -m "xxx" 将暂存区的所有内容提交到当前分支
+    ```
+
+* git status
+
+    查看版本库状态
+
+    ```bash
+    git status
+    ```
+* git diff
+
+    查看变更内容
+
+    ```bash
+    git diff <revision> -- <file>
+    ```
+
+    * `<revision>`默认是当前版本
+    * `<file>`默认时全部已经修改文件
+
+    ```bash
+    git diff 33ee1e2 234ab1b 对比两个版本有什么不同
+
+    git diff 33ee1e2 234ab1b -- "./learn20180223/day3/express_API.md" 对比两个版本这个文件的区别；如果只写一个版本就是工作区和所写版本的区别
+    ```
+
+    ```bash
+    $ git diff HEAD -- "git 语法.txt" #查看工作区与版本区当前版本(最后一次提交)区别
+    ```
+
+    git diff 是工作区和暂存区的区别
+    git diff HEAD 是工作区和版本区当前版本的区别哦
+
+    怎么看这些区别，就是版本1通过-+代码的方式变成版本2 版本1最好是旧版本 版本2忽略的话就是工作区
+
+* **git log**
+
+    查看提交历史（默认显示3个历史 enter显示更多，q退出，vim语法 一直enter可以一直显示到最初）
+
+    ```bash
+    git log [<options>] [<revision range>] [[--] <path>…​]
+    ```
+
+    * `<options>`
+
+        * `-p`,`-patch`,`-u` 按补丁格式显示每个更新之间的差异。显示每次提交的内容差异
+        * `--word-diff`	按 word diff 格式显示差异。
+        * `--stat`	显示每次更新的文件修改统计信息。
+        * `--shortstat`	只显示 --stat 中最后的行数修改添加移除统计。
+        * `--name-only`	仅在提交信息后显示已修改的文件清单。
+        * `--name-status`	显示新增、修改、删除的文件清单。
+        * `--abbrev-commit`	仅显示 SHA-1 的前几个字符，而非所有的 40 个字符。
+        * `--relative-date`	使用较短的相对时间显示（比如，“2 weeks ago”）。
+        * `--graph`	显示 ASCII 图形表示的分支合并历史。
+        * `--pretty`	使用其他格式显示历史提交信息。可用的选项包括 oneline，short，full，* fuller 和 format（后跟指定格式）。
+        * `--oneline`	--pretty=oneline --abbrev-commit 的简化用法。
+        * `-<number>`,`-n <number>`,`--max-count=<number>` 只显示最近的`<number>`次提交
+        * `--since`, `--after` 仅显示指定时间之后的提交。 --since="2008-10-01"
+        * `--until`, `--before` 仅显示指定时间之前的提交。--before="2008-11-01"
+        * `--author` 仅显示指定作者相关的提交。--author=gitster
+        * `--committer` 仅显示指定提交者相关的提交。
 
 
-```bash
-git commit -m "xxx" 将暂存区的所有内容提交到当前分支
-```
+    * `<path>`
 
-```bash
-git status 版本库状态
-```
+        路径，可以多个路径。如果只关心某些文件或者目录的历史提交，可以在 git log 选项的最后指定它们的路径。 因为是放在最后位置上的选项，所以用两个短划线（--）隔开之前的选项和后面限定的路径名。当出现混淆时，路径可能需要加上`--` 前缀以将 `<options>` 区分开
 
-```bash
-git diff <revision> -- <file> 查看变更内容 <revision>默认是当前版本 <file>默认时全部已经修改文件
 
-git diff 33ee1e2 234ab1b 对比两个版本有什么不同
+    ``` bash
+    #例子
+    git log #查看全部文件提交历史
+    git log test/test.html #查看 test/test.html 提交历史
+    git log -p test/test.html #查看 test/test.html 提交历史详情（包含文件差异）
+    git log --pretty=oneline 每个记录以一行的方式简化，查看全部文件提交历史
+    git log --graph #查看分支合并图
+    git log --graph --pretty=oneline --abbrev-commit #一行显示 id仅显示前几个字符
+    git log --graph --oneline #一行显示 id仅显示前几个字符
+    ```
 
-git diff 33ee1e2 234ab1b -- "./learn20180223/day3/express_API.md" 对比两个版本这个文件的区别；如果只写一个版本就是工作区和所写版本的区别
-
-```
-
-`$ git diff HEAD -- "git 语法.txt"` 查看工作区与版本区当前版本(最后一次提交)区别
-
-git diff 是工作区和暂存区的区别
-git diff HEAD 是工作区和版本区当前版本的区别哦
-
-怎么看这些区别，就是版本1通过-+代码的方式变成版本2 版本1最好是旧版本 版本2忽略的话就是工作区
-
-```bash
-git log 查看全部文件提交历史（默认显示3个历史 enter显示更多，q退出，vim语法 一直enter可以一直显示到最初）
-```
-
-```bash
-commit 3628164fb26d48395383f8f31179f24e0882e1e0    <commit id>
-Author: Michael Liao <askxuefeng@gmail.com>		   <author>
-Date:   Tue Aug 20 15:11:49 2013 +0800			   <date>
-
-	append GPL									   <描述信息>
-```
-
-```
-git log <path>+<file> 查看指定文件提交历史（enter显示更多，q退出，vim语法）   git log test/test.html
-git log -p <path>+<file> 查看指定文件提交历史详情（enter显示更多，q退出，vim语法）   git log -p test/test.html
-git log --pretty=oneline 每个记录以一行的方式简化，查看全部文件提交历史
-	/*
-		3628164fb26d48395383f8f31179f24e0882e1e0 append GPL				<commit id> + <描述信息>
-	*/
-
-git log --graph 查看分支合并图
-git log --graph --pretty=oneline --abbrev-commit
-```
+    [git log](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2)
 
 ```
 git reset --hard HEAD^ 回退到上一个版本
@@ -117,12 +168,21 @@ git reset <revision> <file> 丢弃工作区的修改 --好重要(其实好像没
 	ssh-keygen -t rsa -C "youremail@example.com"  创建SSH key。 在用户主目录里找到.ssh目录 id_rsa.pub是公钥
 
 	git remote add origin git@github.com:<远程帐号库>/<仓库名>.git 添加远程版本库
+		git remote add 远程仓库名 远程仓库url 来添加多个仓库
+		git remote add mayun git@gitee.com:cccikov/company-admin.git
+
+	git remote -v 查看远程仓库列表
+
 	git push -u origin master 将本地库推送到远程库 -u参数时第一次推送的时候，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来。将本地的master分支推送到origin主机，同时指定origin为默认主机，后面就可以不加任何参数使用git push了。
 	如果当前分支与多个主机存在追踪关系，则可以使用-u选项指定一个默认主机，这样后面就可以不加任何参数使用git push。
 		以后可以不加-u参数
 		git push origin master
 		可以简写为
 		git push origin 或者 git push
+
+	git remote set-url origin http://192.168.0.202:9099/xiaoyun/admin_mobile.git 可以切换远程库
+
+
 
 	git pull origin 从远程库(origin)获取并合并到当前本地本地分支 等价于 git push
 
@@ -154,3 +214,6 @@ git reset <revision> <file> 丢弃工作区的修改 --好重要(其实好像没
 	那在哪干活呢？干活都在dev分支上，也就是说，dev分支是不稳定的，到某个时候，比如1.0版本发布时，再把dev分支合并到master上，在master分支发布1.0版本；
 	你和你的小伙伴们每个人都在dev分支上干活，每个人都有自己的分支，时不时地往dev分支上合并就可以了。
 	所以，团队合作的分支看起来就像这样：
+
+
+
