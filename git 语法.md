@@ -123,6 +123,9 @@ git-命令格式 `<file>`最好加双引号括住 否则，如果文件名有关
         * `--author` 仅显示指定作者相关的提交。--author=gitster
         * `--committer` 仅显示指定提交者相关的提交。
 
+    * `<revision range>`
+
+        
 
     * `<path>`
 

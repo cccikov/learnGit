@@ -115,3 +115,17 @@ git工具
 	那在哪干活呢？干活都在dev分支上，也就是说，dev分支是不稳定的，到某个时候，比如1.0版本发布时，再把dev分支合并到master上，在master分支发布1.0版本；
 	你和你的小伙伴们每个人都在dev分支上干活，每个人都有自己的分支，时不时地往dev分支上合并就可以了。
 	所以，团队合作的分支看起来就像这样：
+
+
+<remote>/<branch>
+
+远程分支 (remote)/(branch) 形式命名  origin/master origin/iss53
+
+“origin” 并无特殊含义
+远程仓库名字 “origin” 与分支名字 “master” 一样，在 Git 中并没有任何特别的含义一样。 同时 “master” 是当你运行 git init 时默认的起始分支名字，原因仅仅是它的广泛使用，“origin” 是当你运行 git clone 时默认的远程仓库名字。 如果你运行 git clone -o booyah，那么你默认的远程分支名字将会是 booyah/master。
+
+
+git stash
+git stash push -m 'haha'
+git stash list
+git stash apply stash@{0}
