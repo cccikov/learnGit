@@ -4,7 +4,16 @@
 
 ```bash
 git <command> [<revision>...] -- [<file>...]
+
+git [--version] [--help] [-C <path>] [-c <name>=<value>] [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path] [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare] [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>] <command> [<args>]
 ```
+
+* `git <command> --help` 打开对应命令的文档 `C:\Program Files\Git\mingw64\share\doc\git-doc` 为文档位置  `git add --help`
+* `git <command> -help` 在命令行中显示对应的语法 `git add -help`
+* `git help` 等同于 `git --help`
+* `git -help` 显示git的语法
+
+
 git-命令格式 `<file>`最好加双引号括住 否则，如果文件名有关键字（如git）会出错
 
 #### git工具
@@ -115,7 +124,7 @@ git-命令格式 `<file>`最好加双引号括住 否则，如果文件名有关
         * `--abbrev-commit`	仅显示 SHA-1 的前几个字符，而非所有的 40 个字符。简化commit id
         * `--relative-date`	使用较短的相对时间显示（比如，“2 weeks ago”）。
         * `--graph`	显示 ASCII 图形表示的分支合并历史。
-        * `--pretty`	使用其他格式显示历史提交信息。可用的选项包括 oneline，short，full，* fuller 和 format（后跟指定格式）。
+        * `--pretty`	使用其他格式显示历史提交信息。可用的选项包括 oneline，short，full，* fuller 和 format（后跟指定格式）。oneline：一行显示
         * `--oneline`	--pretty=oneline --abbrev-commit 的简化用法。
         * `-<number>`,`-n <number>`,`--max-count=<number>` 只显示最近的`<number>`次提交
         * `--since`, `--after` 仅显示指定时间之后的提交。 --since="2008-10-01"
@@ -125,7 +134,7 @@ git-命令格式 `<file>`最好加双引号括住 否则，如果文件名有关
 
     * `<revision range>`
 
-        
+
 
     * `<path>`
 
@@ -139,8 +148,8 @@ git-命令格式 `<file>`最好加双引号括住 否则，如果文件名有关
     git log -p test/test.html #查看 test/test.html 提交历史详情（包含文件差异）
     git log --pretty=oneline #查看全部文件提交历史,每个记录以一行的方式简化，
     git log --graph #查看分支合并图
-    git log --graph --pretty=oneline --abbrev-commit #查看分支合并图 一行显示 简化commit id
-    git log --graph --oneline #查看分支合并图 一行显示 简化commit id
+    git log --graph --pretty=oneline --abbrev-commit #查看分支合并图 一行显示 简化commit id --pretty=oneline一行显示 ; --abbrev-commit 简化commit id**
+    git log --graph --oneline #查看分支合并图 一行显示 简化commit id ；显示效果同上面命令
     ```
 
     [git log](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2)
@@ -161,6 +170,7 @@ git reset <revision> <file> 丢弃工作区的修改 --好重要(其实好像没
 	    git reset --hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容，此命令 慎用！
 	*/
 ```
+
 删除文件
 	git rm <file> 在版本库删除指定文件  删除完之后直接git commit -m "XXX"
 		/*
@@ -170,11 +180,44 @@ git reset <revision> <file> 丢弃工作区的修改 --好重要(其实好像没
 远程仓库
 	ssh-keygen -t rsa -C "youremail@example.com"  创建SSH key。 在用户主目录里找到.ssh目录 id_rsa.pub是公钥
 
-	git remote add origin git@github.com:<远程帐号库>/<仓库名>.git 添加远程版本库
-		git remote add 远程仓库名 远程仓库url 来添加多个仓库
-		git remote add mayun git@gitee.com:cccikov/company-admin.git
 
-	git remote -v 查看远程仓库列表
+* **git remote**
+
+    ``` bash
+    git remote [-v | --verbose]
+    git remote add [-t <branch>] [-m <master>] [-f] [--tags | --no-tags] [--mirror=<fetch|push>] <name> <url>
+    git remote rename <old> <new>
+    git remote remove <name>
+    git remote set-head <name> (-a | --auto | -d | --delete | <branch>)
+    git remote [-v | --verbose] show [-n] <name>
+    git remote prune [-n | --dry-run] <name>
+    git remote [-v | --verbose] update [-p | --prune] [(<group> | <remote>)...]
+    git remote set-branches [--add] <name> <branch>...
+    git remote get-url [--push] [--all] <name>
+    git remote set-url [--push] <name> <newurl> [<oldurl>]
+    git remote set-url --add <name> <newurl>
+    git remote set-url --delete <name> <url>
+    ```
+
+    * `-v`, `--verbose` Be a little more verbose and show remote url after name. NOTE: This must be placed between `remote` and `subcommand`. 稍微冗长一点，并在名字后显示远程网址。注意：必须放在remote和子命令之间。
+
+    ``` bash
+    git remote #查看远程仓库列表
+    git remote -v #查看远程仓库列表，信息多点
+    ```
+
+    子命令
+
+    -  `git remote add <name> <url>` 添加远程版本库，可添加多个仓库
+	    + <url> github的远程库路径都为 git@github.com:<远程帐号库>/<仓库名>.git
+        ``` bash
+		git remote add origin git@github.com:cccikov/learnGit.git
+		git remote add mayun git@gitee.com:cccikov/company-admin.git
+        ```
+
+	git remote set-url origin http://192.168.0.202:9099/xiaoyun/admin_mobile.git 可以切换远程库
+
+* **git push**
 
 	git push -u origin master 将本地库推送到远程库 -u参数时第一次推送的时候，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来。将本地的master分支推送到origin主机，同时指定origin为默认主机，后面就可以不加任何参数使用git push了。
 	如果当前分支与多个主机存在追踪关系，则可以使用-u选项指定一个默认主机，这样后面就可以不加任何参数使用git push。
@@ -183,9 +226,7 @@ git reset <revision> <file> 丢弃工作区的修改 --好重要(其实好像没
 		可以简写为
 		git push origin 或者 git push
 
-	git remote set-url origin http://192.168.0.202:9099/xiaoyun/admin_mobile.git 可以切换远程库
-
-
+* **git pull**
 
 	git pull origin 从远程库(origin)获取并合并到当前本地本地分支 等价于 git push
 
@@ -198,19 +239,27 @@ git reset <revision> <file> 丢弃工作区的修改 --好重要(其实好像没
 		git支持多种协议 ssh协议 git clone git@github.com:cccikov/cccgit.git
 						https协议 git clone https://github.com/cccikov/cccgit.git
 
-分支作用
-	在Git里，这个分支叫主分支，即master分支。
-	分支在实际中有什么用呢？假设你准备开发一个新功能，但是需要两周才能完成，第一周你写了50%的代码，如果立刻提交，由于代码还没写完，不完整的代码库会导致别人不能干活了。如果等代码全部写完再一次提交，又存在丢失每天进度的巨大风险。
-	git branch 查看分支
-	git branch <name> 创建分支
-	git checkout <name> 切换分支
-	git checkout -b <name> 创建+切换分支
-	git merge <name> 合并某分支到当前分支
-		git merge --no-ff -m "merge with no-ff" dev   --no-ff参数，强制禁用Fast forward模式
-	git branch -d <name> 删除分支
 
-`git log --graph` 查看分支合并图
-**`git log --graph --pretty=oneline --abbrev-commit`  `--pretty=oneline`一行显示 ; `--abbrev-commit`简化commit id**
+-------------------
+
+
+## 分支作用
+
+在Git里，这个分支叫主分支，即master分支。
+分支在实际中有什么用呢？假设你准备开发一个新功能，但是需要两周才能完成，第一周你写了50%的代码，如果立刻提交，由于代码还没写完，不完整的代码库会导致别人不能干活了。如果等代码全部写完再一次提交，又存在丢失每天进度的巨大风险。
+
+* `git branch` 查看分支
+* `git branch <name>` 创建分支
+* `git checkout <name>` 切换分支
+* `git checkout -b <name>` 创建+切换分支
+* `git merge <name>` 合并某分支到当前分支
+
+    git merge --no-ff -m "merge with no-ff" dev   --no-ff参数，强制禁用Fast forward模式
+
+* `git branch -d <name>` 删除分支
+* `git log --graph` 查看分支合并图
+
+    **`git log --graph --pretty=oneline --abbrev-commit`  `--pretty=oneline`一行显示 ; `--abbrev-commit`简化commit id**
 
 在实际开发中，我们应该按照几个基本原则进行分支管理：
 	首先，master分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；
@@ -223,10 +272,13 @@ git checkout -b dev 4159f67  将版本回退到4159f67，并在这里创建一�
 git checkout 4159f67 将版本回退到4159f67，但是HEAD是分离的。将HEAD移动到 4159f67 commit id 版本 位置，但是HEAD处于分离状态
 git reset 4159f67 将代码重置到4159f67版本
 ```
+
+------------------
+
 分离头指针
 在"分离头指针"模式下进行的提交除了使用提交的ID来访问之外，不能通过master分支或者其他分支访问到，如果这个提交时master分支所需要的，那么该如何处理呢？如果使用git reset命令把master分支重置到该测试提交的分支上，那么会丢掉master指向的当前的提交。使用git merge合并操作可以两者兼顾。
 
-
+-----------------
 
 三棵树
 理解 reset 和 checkout 的最简方法，就是以 Git 的思维框架（将其作为内容管理器）来管理三棵不同的树。 “树” 在我们这里的实际意思是 “文件的集合”，而不是指特定的数据结构。 （在某些情况下索引看起来并不像一棵树，不过我们现在的目的是用简单的方式思考它。）
