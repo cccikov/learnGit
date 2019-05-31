@@ -209,13 +209,17 @@ git reset <revision> <file> 丢弃工作区的修改 --好重要(其实好像没
     子命令
 
     -  `git remote add <name> <url>` 添加远程版本库，可添加多个仓库
+
 	    + <url> github的远程库路径都为 git@github.com:<远程帐号库>/<仓库名>.git
+
         ``` bash
 		git remote add origin git@github.com:cccikov/learnGit.git
 		git remote add mayun git@gitee.com:cccikov/company-admin.git
         ```
 
-	git remote set-url origin http://192.168.0.202:9099/xiaoyun/admin_mobile.git 可以切换远程库
+    - `git remote set-url [--push] <name> <newurl> [<oldurl>]`  更改远程的URL
+
+	    `git remote set-url origin http://192.168.0.202:9099/xiaoyun/admin_mobile.git `可以切换远程库
 
 * **git push**
 
@@ -234,14 +238,22 @@ git reset <revision> <file> 丢弃工作区的修改 --好重要(其实好像没
 
 	git pull origin master 将远程库(origin)的master分支拉取并合并到当前分支上(所以要注意了，如果当前分支不是master，会将当前分支合并成master那样，慎用)。
 
+* **git clone**
 
 	git clone <url> 克隆远程库
-		git支持多种协议 ssh协议 git clone git@github.com:cccikov/cccgit.git
-						https协议 git clone https://github.com/cccikov/cccgit.git
+
+	git支持多种协议:
+
+    1. ssh协议 git clone git@github.com:cccikov/cccgit.git
+
+        ssh 协议需要 ssh 公钥，但是一旦添加到远程库中，就可以直接拉取代码；不需要登录。适合私人电脑，公司电脑。
+
+	2. https协议 git clone https://github.com/cccikov/cccgit.git
+
+        https 每次拉取和推送都需要输入账号密码登录（虽然电脑可能会记住密码）
 
 
 -------------------
-
 
 ## 分支作用
 
@@ -262,10 +274,16 @@ git reset <revision> <file> 丢弃工作区的修改 --好重要(其实好像没
     **`git log --graph --pretty=oneline --abbrev-commit`  `--pretty=oneline`一行显示 ; `--abbrev-commit`简化commit id**
 
 在实际开发中，我们应该按照几个基本原则进行分支管理：
-	首先，master分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；
-	那在哪干活呢？干活都在dev分支上，也就是说，dev分支是不稳定的，到某个时候，比如1.0版本发布时，再把dev分支合并到master上，在master分支发布1.0版本；
-	你和你的小伙伴们每个人都在dev分支上干活，每个人都有自己的分支，时不时地往dev分支上合并就可以了。
-	所以，团队合作的分支看起来就像这样：
+
+* 首先，master分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；
+* 那在哪干活呢？干活都在dev分支上，也就是说，dev分支是不稳定的，到某个时候，比如1.0版本发布时，再把dev分支合并到master上，在master分支发布1.0版本；
+* 你和你的小伙伴们每个人都在dev分支上干活，每个人都有自己的分支，时不时地往dev分支上合并就可以了。
+
+-----------------
+
+## 分离头指针
+
+在"分离头指针"模式下进行的提交除了使用提交的ID来访问之外，不能通过master分支或者其他分支访问到，如果这个提交时master分支所需要的，那么该如何处理呢？如果使用git reset命令把master分支重置到该测试提交的分支上，那么会丢掉master指向的当前的提交。使用git merge合并操作可以两者兼顾。
 
 ```
 git checkout -b dev 4159f67  将版本回退到4159f67，并在这里创建一个新的 dev 分支，因为HEAD在dev分支上，所以HEAD不是是分离的
@@ -273,37 +291,30 @@ git checkout 4159f67 将版本回退到4159f67，但是HEAD是分离的。将HEA
 git reset 4159f67 将代码重置到4159f67版本
 ```
 
-------------------
-
-分离头指针
-在"分离头指针"模式下进行的提交除了使用提交的ID来访问之外，不能通过master分支或者其他分支访问到，如果这个提交时master分支所需要的，那么该如何处理呢？如果使用git reset命令把master分支重置到该测试提交的分支上，那么会丢掉master指向的当前的提交。使用git merge合并操作可以两者兼顾。
-
 -----------------
 
-三棵树
+## 三棵树
+
 理解 reset 和 checkout 的最简方法，就是以 Git 的思维框架（将其作为内容管理器）来管理三棵不同的树。 “树” 在我们这里的实际意思是 “文件的集合”，而不是指特定的数据结构。 （在某些情况下索引看起来并不像一棵树，不过我们现在的目的是用简单的方式思考它。）
 
 Git 作为一个系统，是以它的一般操作来管理并操纵这三棵树的：
 
-树	用途
+| 树                | 用途                              |
+|:-----------------:|:----------------------------------|
+| HEAD              | 上一次提交的快照，下一次提交的父结点 |
+| Index             | 预期的下一次提交的快照              |
+| Working Directory | 沙盒                              |
 
-HEAD
-上一次提交的快照，下一次提交的父结点
+* HEAD
 
-Index
-预期的下一次提交的快照
+    HEAD 是当前分支引用的指针，它总是指向该分支上的最后一次提交。 这表示 HEAD 将是下一次提交的父结点。 通常，理解 HEAD 的最简方式，就是将它看做 你的上一次提交 的快照。
 
-Working Directory
-沙盒
+* index
 
-HEAD
-HEAD 是当前分支引用的指针，它总是指向该分支上的最后一次提交。 这表示 HEAD 将是下一次提交的父结点。 通常，理解 HEAD 的最简方式，就是将它看做 你的上一次提交 的快照。
+    索引是你的 预期的下一次提交。 我们也会将这个概念引用为 Git 的 “暂存区域”，这就是当你运行 git commit 时 Git 看起来的样子。
 
+    Git 将上一次检出到工作目录中的所有文件填充到索引区，它们看起来就像最初被检出时的样子。 之后你会将其中一些文件替换为新版本，接着通过 git commit 将它们转换为树来用作新的提交。
 
-index
-索引是你的 预期的下一次提交。 我们也会将这个概念引用为 Git 的 “暂存区域”，这就是当你运行 git commit 时 Git 看起来的样子。
+* Working Directory
 
-Git 将上一次检出到工作目录中的所有文件填充到索引区，它们看起来就像最初被检出时的样子。 之后你会将其中一些文件替换为新版本，接着通过 git commit 将它们转换为树来用作新的提交。
-
-Working Directory
-最后，你就有了自己的工作目录。 另外两棵树以一种高效但并不直观的方式，将它们的内容存储在 .git 文件夹中。 工作目录会将它们解包为实际的文件以便编辑。 你可以把工作目录当做 沙盒。在你将修改提交到暂存区并记录到历史之前，可以随意更改。
+    最后，你就有了自己的工作目录。 另外两棵树以一种高效但并不直观的方式，将它们的内容存储在 .git 文件夹中。 工作目录会将它们解包为实际的文件以便编辑。 你可以把工作目录当做 沙盒。在你将修改提交到暂存区并记录到历史之前，可以随意更改。
