@@ -150,6 +150,7 @@ git-命令格式 `<file>`最好加双引号括住 否则，如果文件名有关
     git log --graph #查看分支合并图
     git log --graph --pretty=oneline --abbrev-commit #查看分支合并图 一行显示 简化commit id --pretty=oneline一行显示 ; --abbrev-commit 简化commit id**
     git log --graph --oneline #查看分支合并图 一行显示 简化commit id ；显示效果同上面命令
+    git log --graph --oneline --since=2019-06-02 --author=ccc #查看ccc自20190602的提交记录
     ```
 
     [git log](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2)
