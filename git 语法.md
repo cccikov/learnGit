@@ -342,3 +342,9 @@ git log --all 查看库全部分支的log
 
 git log origin --graph --oneline --all -10 --date-order 按时间排序
 git log origin --graph --oneline --all -10 --topo-order 按层级排序
+
+追踪
+
+git branch --track origin/z_ccc
+git push -u mayun z_ccc
+git checkout --track origin/master
