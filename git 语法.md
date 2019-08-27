@@ -343,8 +343,16 @@ git log --all 查看库全部分支的log
 git log origin --graph --oneline --all -10 --date-order 按时间排序
 git log origin --graph --oneline --all -10 --topo-order 按层级排序
 
-追踪
-
-git branch --track origin/z_ccc
+跟踪
 git push -u mayun z_ccc
 git checkout --track origin/master
+git branch -u mayun/master
+git branch --set-upstream-to=mayun/master
+跟踪后 git push 就会自动提交到对应的远程库
+
+
+git pull = git fetch + git merge
+
+git push -u
+等同于
+git push --set-upstream
