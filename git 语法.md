@@ -127,9 +127,9 @@ git-命令格式 `<file>`最好加双引号括住 否则，如果文件名有关
         * `--pretty`	使用其他格式显示历史提交信息。可用的选项包括 oneline，short，full，* fuller 和 format（后跟指定格式）。oneline：一行显示
         * `--oneline`	--pretty=oneline --abbrev-commit 的简化用法。
         * `-<number>`,`-n <number>`,`--max-count=<number>` 只显示最近的`<number>`次提交
-        * `--since`, `--after` 仅显示指定时间之后的提交。 --since="2008-10-01"
-        * `--until`, `--before` 仅显示指定时间之前的提交。--before="2008-11-01"
-        * `--author` 仅显示指定作者相关的提交。--author=gitster
+        * `--since`, `--after` 仅显示指定时间之后的提交。 --since=2008-10-01 , --since 2008-10-01 , --since="2008-10-01" 
+        * `--until`, `--before` 仅显示指定时间之前的提交。--before=2008-11-01
+        * `--author` 仅显示指定作者相关的提交。--author=gitster , --author gitster
         * `--committer` 仅显示指定提交者相关的提交。
 
     * `<revision range>`
@@ -356,3 +356,7 @@ git pull = git fetch + git merge
 git push -u
 等同于
 git push --set-upstream
+
+
+git branch --all 全部分支
+git branch 本地分支（本地已经检出的分支）
