@@ -360,3 +360,6 @@ git push --set-upstream
 
 git branch --all 全部分支
 git branch 本地分支（本地已经检出的分支）
+
+git branch -d test -f
+    -f --force
