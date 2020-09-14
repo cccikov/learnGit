@@ -129,3 +129,7 @@ git stash
 git stash push -m 'haha'
 git stash list
 git stash apply stash@{0}
+git stash drop stash@{0}
+git stash clear 清除全部
+
+使用-u或者--include-untracked可以stash untracked文件 未跟踪的
