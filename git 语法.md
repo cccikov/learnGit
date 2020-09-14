@@ -2,6 +2,38 @@
 
 [book](https://git-scm.com/book/zh/v2)
 
+start a working area (see also: git help tutorial)
+   clone      Clone a repository into a new directory
+   init       Create an empty Git repository or reinitialize an existing one
+
+work on the current change (see also: git help everyday)
+   add        Add file contents to the index
+   mv         Move or rename a file, a directory, or a symlink
+   reset      Reset current HEAD to the specified state
+   rm         Remove files from the working tree and from the index
+
+examine the history and state (see also: git help revisions)
+   bisect     Use binary search to find the commit that introduced a bug
+   grep       Print lines matching a pattern
+   log        Show commit logs
+   show       Show various types of objects
+   status     Show the working tree status
+
+grow, mark and tweak your common history
+   branch     List, create, or delete branches
+   checkout   Switch branches or restore working tree files
+   commit     Record changes to the repository
+   diff       Show changes between commits, commit and working tree, etc
+   merge      Join two or more development histories together
+   rebase     Reapply commits on top of another base tip
+   tag        Create, list, delete or verify a tag object signed with GPG
+
+collaborate (see also: git help workflows)
+   fetch      Download objects and refs from another repository
+   pull       Fetch from and integrate with another repository or a local branch
+   push       Update remote refs along with associated objects
+
+
 ```bash
 git <command> [<revision>...] -- [<file>...]
 
@@ -269,6 +301,8 @@ git reset <revision> <file> 丢弃工作区的修改 --好重要(其实好像没
 * `git checkout <name>` 切换分支
 * `git checkout -b <name>` 创建+切换分支
 * `git merge <name>` 合并某分支到当前分支
+    - git merge --abort
+    - git merge --–no-ff
 
     git merge --no-ff -m "merge with no-ff" dev   --no-ff参数，强制禁用Fast forward模式
 
@@ -348,10 +382,15 @@ git push -u mayun z_ccc
 git checkout --track origin/master
 git branch -u mayun/master
 git branch --set-upstream-to=mayun/master
+git branch --set-upstream-to mayun/master
 跟踪后 git push 就会自动提交到对应的远程库
 
 
 git pull = git fetch + git merge
+    
+    git fetch ssh
+    git fetch origin
+    git fetch origin master
 
 git push -u
 等同于
@@ -363,3 +402,28 @@ git branch 本地分支（本地已经检出的分支）
 
 git branch -d test -f
     -f --force
+
+git push -u mayun z_ccc -f 
+    forced update
+
+git branch -vv 查看本地分支及追踪的分支
+
+git branch -a 查看远程分支
+
+git revert
+    合并分支的提交 -m 是 -mainline 的简写
+
+git reflog
+
+git cherry-pick commit_id
+git cherry-pick --abort 
+git cherry-pick 18e1a32...cae91f8   相当于(A B] 不包含A
+git cherry-pick 18e1a32^...cae91f8  相当于[A B] 包含A
+
+git merge --abort
+
+
+git tag -d $(git tag -l)
+
+git push http --delete $(git tag -l)
+
