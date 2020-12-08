@@ -360,7 +360,7 @@ Git 作为一个系统，是以它的一般操作来管理并操纵这三棵树�
 
 ### 未收录
 
-* git checkout -b master --track mayun/master 检出远程分支
+* git checkout -b master --track mayun/master 检出远程分支 --track 本地分支跟踪哪个远程库分支的意思
 * git checkout -b master 新建master分支
 * git checkout master 切换/检出远程分支（只有一个远程线有这个分支时）
 
@@ -383,8 +383,21 @@ git checkout --track origin/master
 git branch -u mayun/master
 git branch --set-upstream-to=mayun/master
 git branch --set-upstream-to mayun/master
+
+如果是 新增的远程库，因为没有拉取过，所以不知道远程库有什么分支，所以无法跟踪远程分支，可以先 `git fetch mayun`，git checkout dev 检出远程分支失败同理
+
 跟踪后 git push 就会自动提交到对应的远程库
 
+-u 是 --set-upstream-to 或者 --set-upstream 的简写
+
+--track 本地分支跟踪远程分支的意思，是检出的时候用
+
+--set-upstream-to
+--set-upstream 是本地分支已经存在，用来跟踪远程分支时用
+
+
+
+git fetch 是将远程主机的最新内容拉到本地
 
 git pull = git fetch + git merge
     
@@ -427,3 +440,4 @@ git tag -d $(git tag -l)
 
 git push http --delete $(git tag -l)
 
+git pull --allow-unrelated-histories      --allow-unrelated-histories, 把两段不相干的 分支进行强行合并
