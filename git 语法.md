@@ -441,3 +441,9 @@ git tag -d $(git tag -l)
 git push http --delete $(git tag -l)
 
 git pull --allow-unrelated-histories      --allow-unrelated-histories, 把两段不相干的 分支进行强行合并
+
+git merge --no-commit 
+
+git merge --squash 
+
+git merge origin/dev
