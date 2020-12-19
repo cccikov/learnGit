@@ -447,3 +447,9 @@ git merge --no-commit
 git merge --squash 
 
 git merge origin/dev
+
+$ git remote add mayun git@gitee.com:cccikov/cxb-admin.git
+$ git fetch mayun
+$ git branch --all
+$ git checkout mayun/someProblem
+$ git checkout -b mayun/someProblem
